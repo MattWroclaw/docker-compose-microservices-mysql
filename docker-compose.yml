@@ -4,6 +4,8 @@
       build: ./test-api-docker
       ports:
         - 10101:10101
+      depends_on:
+        - databases
     client:
       build: ./docker-client
       ports:
@@ -19,6 +21,6 @@
         MYSQL_ROOT_PASSWORD: password
         MYSQL_USER: user
       ports:
-        - "3307:3306"
+        - 3307:3306
       restart: always
 

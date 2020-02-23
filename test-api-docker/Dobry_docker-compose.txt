@@ -1,0 +1,52 @@
+  version: '3'
+      services:
+        api:
+          build: ./test-api-docker
+          ports:
+            - 10101:10101
+          depends_on:
+            - databases
+        client:
+          build: ./docker-client
+          ports:
+             - 12121:12121
+          depends_on:
+            - api
+        databases:
+          container_name: "baza_imie"
+          image: mysql
+          environment:
+            MYSQL_DATABASE: animaldb
+            MYSQL_PASSWORD: password
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_USER: user
+          ports:
+            - "3307:3306"
+          restart: always
+
+  version: '3'
+  services:
+    api:
+      build: ./test-api-docker
+      ports:
+        - 10101:10101
+      depends_on:
+        - databases
+    client:
+      build: ./docker-client
+      ports:
+         - 12121:12121
+      depends_on:
+        - api
+    databases:
+      container_name: "baza_imie"
+      image: mysql
+      environment:
+        MYSQL_DATABASE: animaldb
+        MYSQL_PASSWORD: password
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_USER: user
+      ports:
+        - 3306:3306
+      restart: always
+
